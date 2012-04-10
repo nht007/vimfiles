@@ -218,10 +218,6 @@ set ttymouse=xterm2
 "hide buffers when not displayed
 set hidden
 
-"Command-T configuration
-let g:CommandTMaxHeight=10
-let g:CommandTMatchWindowAtTop=1
-
 if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
@@ -278,9 +274,6 @@ inoremap <C-L> <C-O>:nohls<CR>
 "map to bufexplorer
 nnoremap <leader>b :BufExplorer<cr>
 
-"map to CommandT TextMate style finder
-"nnoremap <leader>t :CommandT<CR>
-
 "map Q to something useful
 noremap Q gq
 
@@ -304,37 +297,6 @@ map <A-k> :cprevious<CR>
 "key mapping for Gundo
 nnoremap <F4> :GundoToggle<CR>
 
-"snipmate setup
-try
-  source ~/.vim/snippets/support_functions.vim
-catch
-  source ~/vimfiles/snippets/support_functions.vim
-endtry
-autocmd vimenter * call s:SetupSnippets()
-function! s:SetupSnippets()
-
-    "if we're in a rails env then read in the rails snippets
-    if filereadable("./config/environment.rb")
-      try
-        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-      catch
-        call ExtractSnips("~/vimfiles/snippets/ruby-rails", "ruby")
-        call ExtractSnips("~/vimfiles/snippets/eruby-rails", "eruby")
-      endtry
-    endif
-
-    try
-      call ExtractSnips("~/.vim/snippets/html", "eruby")
-      call ExtractSnips("~/.vim/snippets/html", "xhtml")
-      call ExtractSnips("~/.vim/snippets/html", "php")
-    catch
-      call ExtractSnips("~/vimfiles/snippets/html", "eruby")
-      call ExtractSnips("~/vimfiles/snippets/html", "xhtml")
-      call ExtractSnips("~/vimfiles/snippets/html", "php")
-    endtry
-endfunction
-
 "visual search mappings
 function! s:VSetSearch()
     let temp = @@
@@ -344,7 +306,6 @@ function! s:VSetSearch()
 endfunction
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
-
 
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
@@ -369,20 +330,6 @@ function! s:HighlightLongLines(width)
         echomsg "Usage: HighlightLongLines [natural number]"
     endif
 endfunction
-
-" Strip trailing whitespace
-" function! <SID>StripTrailingWhitespaces()
-"     " Preparation: save last search, and cursor position.
-"     let _s=@/
-"     let l = line(".")
-"     let c = col(".")
-"     " Do the business:
-"     %s/\s\+$//e
-"     " Clean up: restore previous search history, and cursor position
-"     let @/=_s
-"     call cursor(l, c)
-" endfunction
-" autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 "key mapping for window navigation
 map <C-h> <C-w>h
@@ -424,31 +371,7 @@ let g:user_zen_settings = {
 
 let g:CommandTMaxFiles=50000
 
-
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
 let g:molokai_original=1
-
-" Run the current file in a ConqueTerm, great for ruby tests
-let g:ConqueTerm_InsertOnEnter = 0
-let g:ConqueTerm_CWInsert = 1
-nmap <silent> <Leader>r :call RunRubyCurrentFileConque()<CR>
-nmap <silent> <Leader>R :call RunRakeConque()<CR>
-nmap <silent> <Leader>c :execute 'ConqueTermSplit script/console'<CR>
-nmap <silent> <Leader>i :execute 'ConqueTermSplit pry'<CR>
-nmap <silent> <Leader>b :execute 'ConqueTermSplit /bin/bash --login'<CR>
-nmap <silent> <Leader>S :call RunRspecCurrentFileConque()<CR>
-
-" Run the current file as a ruby file, great for running unit tests
-function RunRubyCurrentFileConque()
-  execute "ConqueTermSplit ruby" bufname('%')
-endfunction
-
-function RunRspecCurrentFileConque()
-  execute "ConqueTermSplit rspec" bufname('%') " --color --format doc"
-endfunction
-
-function RunRakeConque()
-  execute "ConqueTermSplit rake"
-endfunction
