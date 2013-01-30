@@ -263,7 +263,7 @@ endif
 
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_map = '<Leader>p'
+nmap <Leader>p :CtrlP<CR>
 
 silent! nmap <silent> <Leader>q :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :call FindInNERDTree()<CR>
