@@ -1,3 +1,6 @@
+" Always show tab bar and disable left scroll bar to keep macvim window size
+set showtabline=2
+set go-=L
 
 "avoiding annoying CSApprox warning message
 let g:CSApprox_verbose_level = 0
