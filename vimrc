@@ -1,3 +1,7 @@
+" Powerline
+set encoding=utf-8
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
 " Always show tab bar and disable left scroll bar to keep macvim window size
 set showtabline=2
 set go-=L
@@ -239,7 +243,7 @@ if has("gui_running")
 
     if has("gui_mac") || has("gui_macvim")
         " set guifont=Menlo:h14
-        set guifont=Consolas\ for\ BBEdit:h12
+        set guifont=Consolas\ for\ BBEdit\ for\ Powerline:h12
         " key binding for Command-T to behave properly
         " uncomment to replace the Mac Command-T key to Command-T plugin
         "macmenu &File.New\ Tab key=<nop>
